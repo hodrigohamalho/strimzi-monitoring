@@ -1,0 +1,29 @@
+= Strimzi Monitoring
+
+Strimzi (AMQ Streams) with monitoring using Grafana
+
+== Operators installed 
+
+* OpenShift User Workload Monitoring
+* AMQ Streams Operator
+* Grafana Operator
+* Prometheus Operator
+
+== Install The Demo Using Ansible
+
+=== Parameters
+
+[options="header"]
+|=======================
+| Parameter      | Example Value                                      | Definition
+| tkn     | sha256~vFanQbthlPKfsaldJT3bdLXIyEkd7ypO_XPygY1DNtQ | access token for a user with cluster-admin privileges
+| server    | https://api.mycluster.opentlc.com:6443             | OpenShift Cluster API URL
+|=======================
+
+=== Deploying the demo
+----
+export tkn=sha256~dnMRt_XTTEdgDmO6fpi423A6as3X46_1XshCPI-zXW4
+export server=https://api.cluster-h9xg5.h9xg5.sandbox72.opentlc.com:6443
+
+ansible-playbook -e token=${tkn} -e server=${server} playbook.yml
+----

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world-consumer
+  labels:
+    app: hello-world-consumer
+    app.kubernetes.io/component: hello-world-consumer
+    app.kubernetes.io/instance: hello-world-consumer
+    app.kubernetes.io/part-of: consumer-producer
+    app.openshift.io/runtime-version: latest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-world-consumer
+  template:
+    metadata:
+      labels:
+        app: hello-world-consumer
+    spec:
+      containers:
+      - name: hello-world-consumer
+        image: strimzici/hello-world-consumer:rhte
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: BOOTSTRAP_SERVERS
+            value: {{ kafka_cluster }}-kafka-bootstrap:9092
+          - name: TOPIC
+            value: events
+          - name: GROUP_ID
+            value: consumer-app-a
+          - name: LOG_LEVEL
+            value: "INFO"
+          - name: CONSUMER_MESSAGE_COUNT
+            value: "1000000"
